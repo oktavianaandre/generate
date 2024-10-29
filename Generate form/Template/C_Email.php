@@ -57,14 +57,13 @@ class C_Email extends CI_Controller {
             'name'=>$superior->name,
             'department_code'=>$superior->kode_section,
             'department_name'=>$superior->section,
-            // 'office_email'=>$superior->email_pic,
+            'office_email'=>$superior->email_pic,
             'position_code'=>'Closed',
             'position_name'=>'Closed',
             'subject_email'=>"Finish Approval",
             'body_content'=>'Closed',
             'comment'=> '',
-            'cc_email'=>'oktavianaandree@gmail.com');
-            // 'cc_email'=>$superior->email_pic.';'.$superior->email_admin.';'.$superior->email_superior.';'.$superior->email_superior2.';'.$superior->email_mr);
+            'cc_email'=>$superior->email_pic.';'.$superior->email_admin.';'.$superior->email_superior.';'.$superior->email_superior2.';'.$superior->email_mr);
 
         $this->M_email->send_mail($email_data);
 
@@ -84,15 +83,13 @@ class C_Email extends CI_Controller {
                 'name'=>$next_approver->name,
                 'department_code'=>$next_approver->department_code,
                 'department_name'=>$next_approver->department_name,
-                // 'office_email'=>$next_approver->office_email,
-                'office_email'=>'oktavianaandree@gmail.com',
+                'office_email'=>$next_approver->office_email,
                 'position_code'=>$next_approver->position_code,
                 'position_name'=>$next_approver->position_name,
                 'subject_email'=>"Need Approve " .$next_approver->name ." (" . $next_approver->position_name .')',
                 'body_content'=>'Waiting Approve :',
                 'comment'=> '',
-                'cc_email'=>'oktavianaandree@gmail.com');
-                // 'cc_email'=>$superior->email_pic.';'.$superior->email_admin.';'.$superior->email_superior.';'.$superior->email_superior2.';'.$superior->email_mr);
+                'cc_email'=>$superior->email_pic.';'.$superior->email_admin.';'.$superior->email_superior.';'.$superior->email_superior2.';'.$superior->email_mr);
     
             $this->M_email->send_mail($email_data);
         }
@@ -139,15 +136,13 @@ class C_Email extends CI_Controller {
             'name'=>$superior->name,
             'department_code'=>$superior->kode_section,
             'department_name'=>$superior->section,
-            'office_email'=>'oktavianaandree@gmail.com',
-            // 'office_email'=>$superior->email_pic,
+            'office_email'=>$superior->email_pic,
             'position_code'=>'',
             'position_name'=>'PIC Admin',
             'subject_email'=>"Rejected By : ".$rejected_by ." - " .$position_name ." With Reason : ".$reason,
             'body_content'=>'Rejected :',
             'comment'=> $reason,
-            'cc_email'=>'oktavianaandree@gmail.com');
-            // 'cc_email'=>$superior->email_pic.';'.$superior->email_admin.';'.$superior->email_superior.';'.$superior->email_superior2.';'.$superior->email_mr);
+            'cc_email'=>$superior->email_pic.';'.$superior->email_admin.';'.$superior->email_superior.';'.$superior->email_superior2.';'.$superior->email_mr);
 
         $this->M_email->send_mail($email_data);
         $data['status']="berhasil reject";

@@ -425,14 +425,12 @@ sendmail=f"""$email_data = array(
             'name'=>$approver->name,
             'department_code'=>$approver->department_code,
             'department_name'=>$approver->department_name,
-            // 'office_email'=>$approver->office_email,
-            'office_email'=>'fadhilahm282@gmail.com',
+            'office_email'=>$approver->office_email,
             'position_code'=>'1',
             'position_name'=>'QMS Admin',
             'subject_email'=>"Add Procedure",
             'body_content'=>'Open',
             'comment'=> '',
-            // 'cc_email'=>'');
             'cc_email'=>$superior->email_pic.';'.$superior->email_admin.';'.$superior->email_superior.';'.$superior->email_superior2.';'.$superior->email_mr);
 
         $this->M_email->send_mail($email_data);"""
@@ -562,7 +560,7 @@ for index, row in df.iloc[start_row:].iterrows():
         caprovs = caprov
         caprovs = caprovs.replace("@file", df.iloc[1,1])
         
-    if df.iloc[0,3] == "Yes" and caprovs == "":
+    if df.iloc[0,3] == "Yes" and deletes == "":
         deletes = delete
         deletes = deletes.replace("@file", df.iloc[1,1])
 
@@ -825,56 +823,57 @@ else:
     print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
 #batas d
 
-if copy_file(template_path_e, destination_path_e):
-    
-    
-    print(f"Penggantian selesai dilakukan pada file {destination_path_e}")
-else:
-    print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
-#batas e
+if df.iloc[0,3] == "Yes":
+    if copy_file(template_path_e, destination_path_e):
+        
+        
+        print(f"Penggantian selesai dilakukan pada file {destination_path_e}")
+    else:
+        print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
+    #batas e
 
-if copy_file(template_path_f, destination_path_f):
-    file_replacements_f = [
-        (destination_path_f, '@file_name', file),
-    ]
+    if copy_file(template_path_f, destination_path_f):
+        file_replacements_f = [
+            (destination_path_f, '@file_name', file),
+        ]
 
-    process_files(file_replacements_f)
-    
-    print(f"Penggantian selesai dilakukan pada file {destination_path_f}")
-else:
-    print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
-#batas f
+        process_files(file_replacements_f)
+        
+        print(f"Penggantian selesai dilakukan pada file {destination_path_f}")
+    else:
+        print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
+    #batas f
 
-if copy_file(template_path_g, destination_path_g):
-    
-    print(f"Penggantian selesai dilakukan pada file {destination_path_g}")
-else:
-    print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
-#batas g
+    if copy_file(template_path_g, destination_path_g):
+        
+        print(f"Penggantian selesai dilakukan pada file {destination_path_g}")
+    else:
+        print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
+    #batas g
 
-if copy_file(template_path_h, destination_path_h):
-    file_replacements_h = [
-    (destination_path_h, '@file_name', file),
-    ]
+    if copy_file(template_path_h, destination_path_h):
+        file_replacements_h = [
+        (destination_path_h, '@file_name', file),
+        ]
 
-    process_files(file_replacements_h)
-    
-    
-    print(f"Penggantian selesai dilakukan pada file {destination_path_h}")
-else:
-    print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
-#batas h
+        process_files(file_replacements_h)
+        
+        
+        print(f"Penggantian selesai dilakukan pada file {destination_path_h}")
+    else:
+        print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
+    #batas h
 
-if copy_file(template_path_i, destination_path_i):
-    file_replacements_i = [
-    (destination_path_i, '@file_name', file),
-    ]
+    if copy_file(template_path_i, destination_path_i):
+        file_replacements_i = [
+        (destination_path_i, '@file_name', file),
+        ]
 
-    process_files(file_replacements_i)
+        process_files(file_replacements_i)
 
-    print(f"Penggantian selesai dilakukan pada file {destination_path_i}")
-else:
-    print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
+        print(f"Penggantian selesai dilakukan pada file {destination_path_i}")
+    else:
+        print(f"Gagal menyalin file M_template.php. Penggantian tidak dilakukan.")
 
 def buat_koneksi_string(server, database, username, password):
     return (
@@ -1046,19 +1045,19 @@ def create_send_mail_procedure(connection_string):
 # Variabel untuk server, database, nama pengguna, dan kata sandi
 server = '10.73.142.71'
 database = 'db_line_process'
-username = 'sa'
-password = 'Asmo1234*'
+username = 'pkl'
+password = 'pkl'
 
 # Membuat string koneksi
 connection_string = buat_koneksi_string(server, database, username, password)
+
+# Menjalankan perintah SQL untuk membuat tabel utama
+jalankan_perintah_sql(connection_string, create_table)
 
 # Check the condition before creating the procedure
 if df.iloc[0, 3] == "Yes":
     # Call the function to create the stored procedure
     create_send_mail_procedure(connection_string)
-
-    # Menjalankan perintah SQL untuk membuat tabel utama
-    jalankan_perintah_sql(connection_string, create_table)
 
     # Membuat tabel persetujuan jika diperlukan
     buat_tabel_persetujuan(connection_string, table)  # Use the variable 'table' for the table name

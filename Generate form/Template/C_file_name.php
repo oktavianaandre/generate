@@ -365,7 +365,7 @@ class C_@file_name extends CI_Controller {
                                 $hdrid3=$hdrid2->hdrid;// Jika sudah ada
                                 $hdrid3="TR".(intval(substr($hdrid3,2,10))+1); //maka naik 1 level
 							}
-
+                        }
                             $hdrid=$hdrid3;
 
 							$resultData[$index]['hdrid'] =   $hdrid3;  
@@ -375,7 +375,7 @@ class C_@file_name extends CI_Controller {
 							// Tidak ada detail implementasi karena tidak ada konteks yang jelas
 							@excel_imports
 							$index++;
-						}
+						
 
                     }
                     
